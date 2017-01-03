@@ -30,6 +30,7 @@ GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o appname-linux appname.go
 ## Test tables
 We can use anonymous structs to write very clear table tests that have multiple inputs and expected results without relying on any external package.
 E.g. 
+<pre>
 var testTable = []struct {
 		isdev    bool
 		expected string
@@ -45,6 +46,7 @@ var testTable = []struct {
 			t.Errorf("getUsersHomeDir: Expected %s, Got %s", test.expected, actual)
 		}
 	}
+</pre>
 
 # Gotchas
 
@@ -59,26 +61,31 @@ To define your own format, write down what the reference time would look like fo
 # Mocking
 Create the interface with one or more of the methods from the original package struct
 
-E.g. This is so we can mock the sftputil.SFTPClient struct
+E.g. This is so we can mock the sftphelper.SFTPConnection struct
 
+<pre>
 type SftpConnector interface {
-	WriteFile(string , string, string) error
+	RemoveFile(string) error
 }
+</pre>
+
 Write the mock struct using the interface
+<pre>
 type FakeSftpConnector struct {
 	
 }
 // make sure it satisfies the interface
 var _ SftpConnector = (*FakeSftpConnector)(nil)
 
-func (f *FakeSftpConnector) WriteFile(source string, target string, fileName string) error {
+func (f *FakeSftpConnector) RemoveFile(source string) error {
 ...
 }
+</pre>
 
-Update your function that takes the  sftputil.SFTPClient struct  function to take the new interface instead
+Update your function that takes the  sftphelper.SFTPConnection struct  function to take the new interface instead
 
 In your test code, you can send in the fake struct instead and make assertions on the inputs after calling the target function
-
+<pre>
 func TestProcessInnerFiles(t *testing.T) {
 	tt := &FakeSftpConnector{}
 	err := processInnerFiles(tt, "/home/ftptest/feed_20160912/", "IN7994_20160715.json")
@@ -86,6 +93,7 @@ func TestProcessInnerFiles(t *testing.T) {
 		t.Errorf("Error was not expected in processInnerFiles: %s", err)
 	}
 }
+</pre>
 
 # Reference Links
 - Examples in the test code - https://blog.golang.org/examples
