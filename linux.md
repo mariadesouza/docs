@@ -26,10 +26,10 @@
 > netstat -anp | egrep -i 'httpd|apache'
 
 * Change user group
-usermod -a -G wheel lvuser
+> usermod -a -G wheel lvuser
 
 * allow the group wheel to use sudo commands.
 The sudo configuration file is /etc/sudoers. We should never edit this file manually. Instead, use the visudo command:  # visudo
 
 * Replace a String With Another String In All Files Using sed
-sed -i 's/10.11.50.212/*/g’ *.conf
+> sed -i 's/10.11.50.212/*/g’ *.conf
