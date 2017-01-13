@@ -9,7 +9,7 @@
 
 * find out if 32-bit or 64-bit
 > uname -a
->>Linux maria.incentivenetworks.internal 2.6.18-194.32.1.el5 #1 SMP Wed Jan 5 17:52:25 EST 2011 x86_64 x86_64 x86_64 GNU/Linux
+>>Linux servername.internal 2.6.18-194.32.1.el5 #1 SMP Wed Jan 5 17:52:25 EST 2011 x86_64 x86_64 x86_64 GNU/Linux
 >>x86_64 => 64-bit
 >>i686 => 32-bit.
 
