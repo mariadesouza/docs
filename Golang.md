@@ -59,7 +59,17 @@ which is Unix time 1136239445. Since MST is GMT-0700, the reference time can be 
 To define your own format, write down what the reference time would look like formatted your way; see the values of constants like ANSIC, StampMicro or Kitchen for examples. The model is to demonstrate what the reference time looks like so that the Format and Parse methods can apply the same transformation to a general time value.
 
 ## Maps and struct
-You cannot assign a struct field off map directly in golang. The work around is to make the map to refer to a pointer of struct.
+Assign a struct field off map has to be done by first creating the element in golang. 
+
+/Each node
+type apiNode struct {
+	method, expectedfile string
+}
+
+var handlerMap map[string]apiNode
+handlerMap = make(map[string]apiNode)
+
+handlerMap[APIName] = apiNode{"GET","a.json"}
 
 # Mocking
 Create the interface with one or more of the methods from the original package struct
